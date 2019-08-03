@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Auxiliary libraries */
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -12,6 +15,7 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_orange[]      = "#d08770";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -27,24 +31,26 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ NULL,       NULL,       NULL,       0,            0,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
+	{ NULL,       NULL },   /* necessary to be able to loop over */
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -55,27 +61,48 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+/* General commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char termname[3] = "st"; /* terminal name to be used on definitions */
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "st" , NULL };
+static const char *printscreen[] = { "scrot", "\'%Y-%m-%d_$wx$h.png\'", "-e", "\'mv $f ~/Imagens\'", NULL };
+/* Multimedia commands */
+/* Audio commands */
+static const char *volup[]      = { "pactl", "set-sink-volume", "0", "+5%", NULL }; 
+static const char *voldown[]    = { "pactl", "set-sink-volume", "0", "-5%", NULL }; 
+static const char *volmute[]    = { "pactl", "set-sink-mute", "0", "toggle", NULL }; 
+/* Media Player commands */
+static const char *mediatoggle[]    = { "mpc", "toggle", NULL };
+static const char *mediastop[]      = { "mpc", "stop", NULL };
+static const char *mediaprev[]      = { "mpc", "prev", NULL };
+static const char *medianext[]      = { "mpc", "next", NULL };
+/* Screen Brightness commands */
+static const char *brightup[]   = { "brightnessctl" , "set", "+10%", NULL};
+static const char *brightdown[]   = { "brightnessctl" , "set", "10%-", NULL};
+
+/* Application specific commands */
+//static const char *filebrowser = { "st", "-e", "ranger", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_u,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ControlMask,		XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -94,6 +121,23 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+        { 0,                            XK_Print,  spawn, {.v = printscreen} },
+        /* Multimedia Keys */
+        /* Audio keys */
+        { 0,                        XF86XK_AudioRaiseVolume, spawn, {.v = volup } },
+        { 0,                        XF86XK_AudioLowerVolume, spawn, {.v = voldown } },
+        { 0,                        XF86XK_AudioMute, spawn, {.v = volmute } },
+        /* Media Player keys */
+        { 0,                        XF86XK_AudioPlay, spawn, {.v = mediatoggle } },
+        { ShiftMask,                XF86XK_AudioPlay, spawn, {.v = mediastop } },
+        { 0,                        XF86XK_AudioPrev, spawn, {.v = mediaprev } },
+        { 0,                        XF86XK_AudioNext, spawn, {.v = medianext } },
+        /* Brightness keys */
+        { 0,                        XF86XK_MonBrightnessUp, spawn, {.v = brightup } },
+        { 0,                        XF86XK_MonBrightnessDown, spawn, {.v = brightdown } },
+
+        /* Application keys */
+//        { MODKEY|ControlMask,           XK_b, spawn, {.v = filebrowser } },
 };
 
 /* button definitions */
