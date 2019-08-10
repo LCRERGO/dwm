@@ -9,6 +9,9 @@ patches and increments:
 2. Added keybings for multimedia keys.
 3. Applyed the centeredmaster patch.
 4. Applyed the cyclelayouts patch.
+5. Changed the default colors.
+6. Applyed the autostart patch.
+7. Applyed the alpha patch.
 
 
 Requirements
