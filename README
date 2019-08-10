@@ -12,11 +12,13 @@ patches and increments:
 5. Changed the default colors.
 6. Applyed the autostart patch.
 7. Applyed the alpha patch.
+8. Applyed the alternative tags patch.
 
 
 Requirements
 ------------
-In order to build dwm you need the Xlib header files.
+In order to build dwm you need the Xlib header files. It also requires the Nerd Fonts
+to be installed on the system.
 
 
 Installation
