@@ -41,7 +41,7 @@ static const unsigned int alphas[][3]      = {
 static const char *tags[] = { "\uf8a3", "\uf8a6", "\uf8a9", "\uf8ac", "\uf8af", "\uf8b2", 
     "\uf8b5", "\uf8b8", "\uf8bb" };
 static const char *tagsalt[] = { "\uf306", "\uf484", "\uf670", "\uf11b", "\ue22b",
-    "\uf0d6", "\uf001", "\ufc74", "\uf7cd" };
+    "\uf0d6", "\uf001", "\uf7cd", "\uf108" };
 /* Default tags */
 /*static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };*/
 
@@ -98,11 +98,13 @@ static const char *mediastop[]      = { "mpc", "stop", NULL };
 static const char *mediaprev[]      = { "mpc", "prev", NULL };
 static const char *medianext[]      = { "mpc", "next", NULL };
 /* Screen Brightness commands */
-static const char *brightup[]   = { "brightnessctl" , "set", "+10%", NULL};
+static const char *brightup[]     = { "brightnessctl" , "set", "+10%", NULL};
 static const char *brightdown[]   = { "brightnessctl" , "set", "10%-", NULL};
 
 /* Application specific commands */
-//static const char *filebrowser = { "st", "-e", "ranger", NULL };
+static const char *browser[]        = { "firefox", NULL };
+static const char *filebrowser[]    = { termname, "-e", "ranger", NULL };
+static const char *musicplayer[]    = { termname, "-e", "ncmpcpp", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -158,7 +160,9 @@ static Key keys[] = {
         { 0,                        XF86XK_MonBrightnessDown, spawn, {.v = brightdown } },
 
         /* Application keys */
-//        { MODKEY|ControlMask,           XK_b, spawn, {.v = filebrowser } },
+        { MODKEY|ControlMask,           XK_b,         spawn,    {.v = browser } },
+        { MODKEY|ControlMask,           XK_f,         spawn,    {.v = filebrowser } },
+        { MODKEY|ControlMask,           XK_m,         spawn,    {.v = musicplayer } },
 };
 
 /* button definitions */
