@@ -38,10 +38,10 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging unicode(requires Nerd Fonts) */
-static const char *tags[] = { "\uf8a3", "\uf8a6", "\uf8a9", "\uf8ac", "\uf8af", "\uf8b2", 
+static const char *tags[] = { "\uf306", "\uf484", "\uf670", "\uf7b3", "\ue22b",
+    "\ufd1d", "\uf001", "\uf7cd", "\uf6c3" };
+static const char *tagsalt[] = { "\uf8a3", "\uf8a6", "\uf8a9", "\uf8ac", "\uf8af", "\uf8b2", 
     "\uf8b5", "\uf8b8", "\uf8bb" };
-static const char *tagsalt[] = { "\uf306", "\uf484", "\uf670", "\uf11b", "\ue22b",
-    "\uf0d6", "\uf001", "\ufc74", "\uf7cd" };
 /* Default tags */
 /*static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };*/
 
@@ -61,11 +61,11 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
-	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
+	{ "\ufb3f",   tile },    /* first entry is default */
+	{ "\uf53d",   NULL },    /* no layout function means floating behavior */
+	{ "\ufad7",   monocle },
+	{ "\ufa6a",   centeredmaster },
+	{ "\ufa6b",   centeredfloatingmaster },
 	{ NULL,       NULL },   /* necessary to be able to loop over */
 };
 
@@ -80,10 +80,16 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
+/* Application Defaults */
+static const char termname[3]           = "st"; /* terminal name to be used on definitions */
+static const char browsername[10]       = "firefox"; /* browser to be user on definitions */
+static const char filebrowsername[7]     = "ranger"; /* console file browser */
+static const char musicplayername[8]    = "ncmpcpp"; /* music player management */
+static const char calendarname[9]       = "calcurse"; /* calendar application */
+
 /* commands */
 /* General commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char termname[3] = "st"; /* terminal name to be used on definitions */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_darkred, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st" , NULL };
 static const char *printscreen[] = { "scrot", "\'%Y-%m-%d_$wx$h.png\'", "-e", "\'mv $f ~/Imagens\'", NULL };
@@ -98,11 +104,15 @@ static const char *mediastop[]      = { "mpc", "stop", NULL };
 static const char *mediaprev[]      = { "mpc", "prev", NULL };
 static const char *medianext[]      = { "mpc", "next", NULL };
 /* Screen Brightness commands */
-static const char *brightup[]   = { "brightnessctl" , "set", "+10%", NULL};
+static const char *brightup[]     = { "brightnessctl" , "set", "+10%", NULL};
 static const char *brightdown[]   = { "brightnessctl" , "set", "10%-", NULL};
 
 /* Application specific commands */
-//static const char *filebrowser = { "st", "-e", "ranger", NULL };
+static const char *browser[]        = { browsername, NULL };
+static const char *filebrowser[]    = { termname, "-e", filebrowsername, NULL };
+static const char *musicplayer[]    = { termname, "-e", musicplayername, NULL };
+static const char *calendar[]       = { termname, "-e", calendarname, NULL };
+static const char *calculator[]     = { termname, "-e", "R", "-q", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -121,6 +131,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ControlMask,		XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
@@ -158,7 +169,11 @@ static Key keys[] = {
         { 0,                        XF86XK_MonBrightnessDown, spawn, {.v = brightdown } },
 
         /* Application keys */
-//        { MODKEY|ControlMask,           XK_b, spawn, {.v = filebrowser } },
+        { MODKEY|ControlMask,           XK_b,         spawn,    {.v = browser } },
+        { MODKEY|ControlMask,           XK_f,         spawn,    {.v = filebrowser } },
+        { MODKEY|ControlMask,           XK_m,         spawn,    {.v = musicplayer } },
+        { MODKEY|ControlMask,           XK_d,         spawn,    {.v = calendar } },
+        { MODKEY|ControlMask,           XK_s,         spawn,    {.v = calculator } },
 };
 
 /* button definitions */

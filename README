@@ -1,5 +1,5 @@
 dwm - dynamic window manager(Njord build)
-============================
+=========================================
 ![Njord's Logo](NjordLogo.png)
 dwm is an extremely fast, small, and dynamic window manager for X.
 This is a custom build of dwm, to which has been applied the following
@@ -19,6 +19,18 @@ Requirements
 ------------
 In order to build dwm you need the Xlib header files. It also requires the Nerd Fonts
 to be installed on the system.
+
+
+Default Applications
+--------------------
+If it is needed to change the defaults it must be done on config.* files
+* Terminal - st
+* Browser - Firefox
+* File Browser - ranger
+* Music Player - ncmpcpp(requires mpd)
+* Calendar - calcurse
+* Calculator - R language
+* Print Screen command - scrot
 
 
 Installation

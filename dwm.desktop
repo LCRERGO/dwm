@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=DWM
+Comment=Dynamic tiling window manager
+Exec=dwm
+Icon=
+Type=XSession

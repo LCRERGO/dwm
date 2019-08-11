@@ -1,0 +1,10 @@
+# .gitignore
+
+# Remove object files
+*.o
+
+# Binary
+dwm
+
+# Packages
+*.tar.gz
