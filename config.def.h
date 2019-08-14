@@ -40,8 +40,8 @@ static const unsigned int alphas[][3]      = {
 /* tagging unicode(requires Nerd Fonts) */
 static const char *tags[] = { "\uf8a3", "\uf8a6", "\uf8a9", "\uf8ac", "\uf8af", "\uf8b2", 
     "\uf8b5", "\uf8b8", "\uf8bb" };
-static const char *tagsalt[] = { "\uf306", "\uf484", "\uf670", "\uf11b", "\ue22b",
-    "\uf0d6", "\uf001", "\uf7cd", "\uf108" };
+static const char *tagsalt[] = { "\uf306", "\uf484", "\uf670", "\uf796", "\ue22b",
+    "\uf6b2", "\uf001", "\uf7cd", "\uf6c3" };
 /* Default tags */
 /*static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };*/
 
