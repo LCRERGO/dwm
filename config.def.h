@@ -82,8 +82,9 @@ static const Layout layouts[] = {
 
 /* Application Defaults */
 static const char termname[3]           = "st"; /* terminal name to be used on definitions */
+static const char menurunner[6]         = "dmenu"; /* interactive menu application */
 static const char browsername[10]       = "firefox"; /* browser to be user on definitions */
-static const char filebrowsername[7]     = "ranger"; /* console file browser */
+static const char filebrowsername[7]    = "ranger"; /* console file browser */
 static const char musicplayername[8]    = "ncmpcpp"; /* music player management */
 static const char calendarname[9]       = "calcurse"; /* calendar application */
 
@@ -172,8 +173,8 @@ static Key keys[] = {
         { MODKEY|ControlMask,           XK_b,         spawn,    {.v = browser } },
         { MODKEY|ControlMask,           XK_f,         spawn,    {.v = filebrowser } },
         { MODKEY|ControlMask,           XK_m,         spawn,    {.v = musicplayer } },
-        { MODKEY|ControlMask,           XK_d,         spawn,    {.v = calendar } },
-        { MODKEY|ControlMask,           XK_s,         spawn,    {.v = calculator } },
+        { MODKEY|ControlMask,           XK_p,         spawn,    {.v = calendar } },
+        { MODKEY|ControlMask,           XK_c,         spawn,    {.v = calculator } },
 };
 
 /* button definitions */
