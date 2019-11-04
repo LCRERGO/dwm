@@ -13,6 +13,7 @@ patches and increments:
 6. Applyed the autostart patch.
 7. Applyed the alpha patch.
 8. Applyed the alternative tags patch.
+9. Applyed the fibonacci patch.
 
 
 Requirements
