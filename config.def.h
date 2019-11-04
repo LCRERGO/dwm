@@ -87,6 +87,7 @@ static const char browsername[10]       = "firefox"; /* browser to be user on de
 static const char filebrowsername[7]    = "ranger"; /* console file browser */
 static const char musicplayername[8]    = "ncmpcpp"; /* music player management */
 static const char calendarname[9]       = "calcurse"; /* calendar application */
+static const char calculatorname[5]     = "ghci"; /* calculator application */
 
 /* commands */
 /* General commands */
@@ -113,7 +114,7 @@ static const char *browser[]        = { browsername, NULL };
 static const char *filebrowser[]    = { termname, "-e", filebrowsername, NULL };
 static const char *musicplayer[]    = { termname, "-e", musicplayername, NULL };
 static const char *calendar[]       = { termname, "-e", calendarname, NULL };
-static const char *calculator[]     = { termname, "-e", "R", "-q", NULL };
+static const char *calculator[]     = { termname, "-e", calculatorname, NULL };
 
 static Key keys[] = {
 	/* modifier                     key            function        argument */

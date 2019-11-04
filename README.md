@@ -29,7 +29,7 @@ If it is needed to change the defaults it must be done on config.* files
 * File Browser - ranger
 * Music Player - ncmpcpp(requires mpd)
 * Calendar - calcurse
-* Calculator - R language
+* Calculator - ghci(Haskell) language
 * Print Screen command - scrot
 
 
