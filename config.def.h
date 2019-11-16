@@ -91,6 +91,7 @@ static const char filebrowsername[7]    = "ranger"; /* console file browser */
 static const char musicplayername[8]    = "ncmpcpp"; /* music player management */
 static const char calendarname[9]       = "calcurse"; /* calendar application */
 static const char calculatorname[5]     = "ghci"; /* calculator application */
+static const char irccname[6]           = "irssi"; /* social irc client application */
 
 /* commands */
 /* General commands */
@@ -118,6 +119,7 @@ static const char *filebrowser[]    = { termname, "-e", filebrowsername, NULL };
 static const char *musicplayer[]    = { termname, "-e", musicplayername, NULL };
 static const char *calendar[]       = { termname, "-e", calendarname, NULL };
 static const char *calculator[]     = { termname, "-e", calculatorname, NULL };
+static const char *socialclient[]   = { termname, "-e", irccname, NULL };
 
 static Key keys[] = {
 	/* modifier                     key            function        argument */
@@ -181,6 +183,7 @@ static Key keys[] = {
         { MODKEY|ControlMask,           XK_m,         spawn,    {.v = musicplayer } },
         { MODKEY|ControlMask,           XK_p,         spawn,    {.v = calendar } },
         { MODKEY|ControlMask,           XK_c,         spawn,    {.v = calculator } },
+        { MODKEY|ControlMask,           XK_s,         spawn,    {.v = socialclient} },
 };
 
 /* button definitions */

@@ -32,6 +32,7 @@ If it is needed to change the defaults it must be done on config.* files
 * Music Player - ncmpcpp(requires mpd)
 * Calendar - calcurse
 * Calculator - ghci(Haskell) language
+* Social IRC client - irssi
 * Print Screen command - scrot
 
 
