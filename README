@@ -14,6 +14,7 @@ patches and increments:
 7. Applyed the alpha patch.
 8. Applyed the alternative tags patch.
 9. Applyed the fibonacci patch.
+10. Applyed the gaplessgrid patch.
 
 
 Requirements

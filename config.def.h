@@ -64,9 +64,10 @@ static const Layout layouts[] = {
 	{ "\ufb3f",   tile },    /* first entry is default */
 	{ "\uf53d",   NULL },    /* no layout function means floating behavior */
 	{ "\ufad7",   monocle },
+        { "\ufa6f",   grid},
 	{ "\ufa6a",   centeredmaster },
 	{ "\ufa6b",   centeredfloatingmaster },
- 	{ "\ue243",   spiral },
+ 	{ "\ufa73",   spiral },
  	{ "\ufd41",   dwindle },
 	{ NULL,       NULL },   /* necessary to be able to loop over */
 };
@@ -135,8 +136,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,          setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,          setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_c,          setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_s,          setlayout,      {.v = &layouts[5]} },
+	{ MODKEY,                       XK_g,          setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_c,          setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_s,          setlayout,      {.v = &layouts[6]} },
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,		XK_semicolon,  cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_space,      setlayout,      {0} },
