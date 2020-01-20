@@ -33,13 +33,13 @@ If it is needed to change the defaults it must be done on config.* files
 * Calendar - calcurse
 * Calculator - ghci(Haskell) language
 * Social IRC client - irssi
-* Print Screen command - scrot
+* Print Screen command - imagemagick
 
 
 Installation
 ------------
 Edit config.mk to match your local setup (dwm is installed into
-the /usr namespace by default).
+the /usr/local namespace by default).
 
 Afterwards enter the following command to build and install dwm (if
 necessary as root):

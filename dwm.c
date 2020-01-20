@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -196,6 +197,7 @@ static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
+static void printscreen(const Arg *arg);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
@@ -1474,6 +1476,34 @@ pop(Client *c)
 	attach(c);
 	focus(c);
 	arrange(c->mon);
+}
+
+void
+printscreen(const Arg *arg)
+{
+        /* A utility function that print a screen, requires imagemagick */
+        time_t t;
+        struct tm *tmp;
+        char buf[64], suffix[5], image_name[128];
+
+        strcpy(suffix, ".jpg");
+        strcpy(image_name, "/tmp/pic-");
+
+        t = time(NULL);
+        tmp = localtime(&t);
+        strftime(buf, 64, "%y%m%d-%H%M-%S", tmp);
+
+        strcat(buf, suffix);
+        strcat(image_name ,buf);
+
+        char *arg_print[] = {"import", "-window", "root", image_name, NULL};
+        if (fork() == 0) {
+            setsid();
+            execvp("import", arg_print);
+            fprintf(stderr, "dwm: failed to execute print command");
+            perror(" failed");
+            exit(EXIT_SUCCESS);
+        }
 }
 
 void

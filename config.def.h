@@ -98,7 +98,6 @@ static const char irccname[6]           = "irssi"; /* social irc client applicat
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_darkred, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st" , NULL };
-static const char *printscreen[] = { "scrot", "\'%Y-%m-%d_$wx$h.png\'", "-e", "\'mv $f ~/Imagens\'", NULL };
 /* Multimedia commands */
 /* Audio commands */
 static const char *volup[]      = { "pactl", "set-sink-volume", "0", "+5%", NULL }; 
@@ -162,7 +161,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                          7)
 	TAGKEYS(                        XK_9,                          8)
 	{ MODKEY|ShiftMask,             XK_q,          quit,           {0} },
-        { 0,                            XK_Print,      spawn, {.v = printscreen} },
+        { 0,                            XK_Print,      printscreen,    {0} },
         /* Multimedia Keys */
         /* Audio keys */
         { 0,                        XF86XK_AudioRaiseVolume, spawn, {.v = volup } },
