@@ -204,7 +204,7 @@ static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
 static void restack(Monitor *m);
 static void run(void);
-static void runAutostart(void);
+static void runautostart(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
@@ -1671,9 +1671,14 @@ run(void)
 }
 
 void
-runAutostart(void) {
-	system("cd ~/.dwm; ./autostart_blocking.sh");
-	system("cd ~/.dwm; ./autostart.sh &");
+runautostart(void) {
+         /* if it's needed to autostart a program, add a system entry here
+          * in the background, otherwise it causes the window manager to bug */
+        system("dunst &");
+        system("compton -b");
+        system("~/.fehbg");
+        
+        system("slstatus &");
 }
 
 void
@@ -2501,7 +2506,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
-	runAutostart();
+	runautostart();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
