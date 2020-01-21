@@ -11,10 +11,9 @@ patches and increments:
 4. Applyed the cyclelayouts patch.
 5. Changed the default colors.
 6. Applyed the autostart patch.
-7. Applyed the alpha patch.
-8. Applyed the alternative tags patch.
-9. Applyed the fibonacci patch.
-10. Applyed the gaplessgrid patch.
+7. Applyed the alternative tags patch.
+8. Applyed the fibonacci patch.
+9. Applyed the gaplessgrid patch.
 
 
 Requirements

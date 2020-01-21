@@ -24,17 +24,11 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_darkred[]     = "#990000";
-static const unsigned int baralpha = 0xd0;
-static const unsigned int borderalpha = OPAQUE;
+static const char col_orange[]      = "#d08770";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_darkred,  col_cyan  },
-};
-static const unsigned int alphas[][3]      = {
-	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+        [SchemeSel]  = { col_gray4, col_darkred,  col_cyan  },
 };
 
 /* tagging unicode(requires Nerd Fonts) */
@@ -84,7 +78,6 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* Application Defaults */
-static const char termname[3]           = "st"; /* terminal name to be used on definitions */
 static const char menurunner[6]         = "dmenu"; /* interactive menu application */
 static const char browsername[10]       = "firefox"; /* browser to be user on definitions */
 static const char filebrowsername[7]    = "ranger"; /* console file browser */
@@ -97,6 +90,7 @@ static const char irccname[6]           = "irssi"; /* social irc client applicat
 /* General commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_darkred, "-sf", col_gray4, NULL };
+static const char termname[3] = "st"; /* terminal name to be used on definitions */
 static const char *termcmd[]  = { "st" , NULL };
 /* Multimedia commands */
 /* Audio commands */
