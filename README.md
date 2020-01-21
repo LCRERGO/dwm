@@ -14,6 +14,7 @@ patches and increments:
 7. Applyed the alternative tags patch.
 8. Applyed the fibonacci patch.
 9. Applyed the gaplessgrid patch.
+10. Applyed the status2d patch.
 
 
 Requirements
