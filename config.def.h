@@ -48,6 +48,15 @@ static const Rule rules[] = {
 	{ NULL,       NULL,       NULL,       0,            0,           -1 },
 };
 
+/* if it's needed to autostart a program, add a system entry here
+ * in the background, otherwise it causes the window manager to bug */
+const char *startuphook[] = {
+         "dunst &"     ,
+         "compton -b"  ,
+         "~/.fehbg"    ,
+         "slstatus &"  ,
+};
+
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */

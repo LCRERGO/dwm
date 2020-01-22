@@ -972,14 +972,24 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 			/* process code */
 			while (text[++i] != sep) {
 				if (text[i] == 'c') {
+                                        /* foreground color */
 					char buf[8];
-					memcpy(buf, (char*)text+i+1, 7);
+					memcpy(buf, (char *)text+i+1, 7);
 					buf[7] = '\0';
 					drw_clr_create(drw, &drw->scheme[ColFg], buf);
 					i += 7;
+                                } else if (text[i] == 'b') {
+                                        /* background color */
+                                        char buf[8];
+                                        memcpy(buf, (char *)text+i+1, 7);
+                                        buf[7] = '\0';
+                                        drw_clr_create(drw, &drw->scheme[ColBg], buf);
 				} else if (text[i] == 'd') {
+                                        /* default color */
 					drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
+                                        drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
 				} else if (text[i] == 'r') {
+                                        /* draw rectangle */
 					int rx = atoi(text + ++i);
 					while (text[++i] != ',');
 					int ry = atoi(text + ++i);
@@ -1590,11 +1600,11 @@ printscreen(const Arg *arg)
 
         char *arg_print[] = {"import", "-window", "root", image_name, NULL};
         if (fork() == 0) {
-            setsid();
-            execvp("import", arg_print);
-            fprintf(stderr, "dwm: failed to execute print command");
-            perror(" failed");
-            exit(EXIT_SUCCESS);
+                setsid();
+                execvp("import", arg_print);
+                fprintf(stderr, "dwm: print command");
+                perror(" failed");
+                exit(EXIT_SUCCESS);
         }
 }
 
@@ -1772,13 +1782,13 @@ run(void)
 
 void
 runautostart(void) {
-         /* if it's needed to autostart a program, add a system entry here
-          * in the background, otherwise it causes the window manager to bug */
-        system("dunst &");
-        system("compton -b");
-        system("~/.fehbg");
-        
-        system("slstatus &");
+        unsigned int i;
+
+        for (i = 0; i < LENGTH(startuphook); i++)
+                if (system(startuphook[i]) == -1) {
+                        fprintf(stderr, "dwm: startuphook for %s", startuphook[i]);
+                        perror(" failed");
+                }
 }
 
 void
