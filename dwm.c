@@ -913,7 +913,7 @@ drawbars(void)
 int
 drawstatusbar(Monitor *m, int bh, char* stext) {
 	int ret, i, w, x, len;
-	short isCode = 0;
+	short is_code = 0;
 	char *text;
 	char *p;
         const char sep = '^';
@@ -929,24 +929,24 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 	i = -1;
 	while (text[++i]) {
 		if (text[i] == sep) {
-			if (!isCode) {
-				isCode = 1;
+			if (!is_code) {
+				is_code = 1;
 				text[i] = '\0';
 				w += TEXTW(text) - lrpad;
 				text[i] = sep;
 				if (text[++i] == 'f')
 					w += atoi(text + ++i);
 			} else {
-				isCode = 0;
+				is_code = 0;
 				text = text + i + 1;
 				i = -1;
 			}
 		}
 	}
-	if (!isCode)
+	if (!is_code)
 		w += TEXTW(text) - lrpad;
 	else
-		isCode = 0;
+		is_code = 0;
 	text = p;
 
 	w += 2; /* 1px padding on both sides */
@@ -960,8 +960,8 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 	/* process status text */
 	i = -1;
 	while (text[++i]) {
-		if (text[i] == sep && !isCode) {
-			isCode = 1;
+		if (text[i] == sep && !is_code) {
+			is_code = 1;
 
 			text[i] = '\0';
 			w = TEXTW(text) - lrpad;
@@ -1004,13 +1004,13 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 				}
 			}
 
-			text = text + i + 1;
-			i=-1;
-			isCode = 0;
+			text += i + 1;
+			i = -1;
+			is_code = 0;
 		}
 	}
 
-	if (!isCode) {
+	if (!is_code) {
 		w = TEXTW(text) - lrpad;
 		drw_text(drw, x, 0, w, bh, 0, text, 0);
 	}
