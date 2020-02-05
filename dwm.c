@@ -1602,9 +1602,7 @@ printscreen(const Arg *arg)
         if (fork() == 0) {
                 setsid();
                 execvp("import", arg_print);
-                fprintf(stderr, "dwm: print command");
-                perror(" failed");
-                exit(EXIT_SUCCESS);
+                die("dwm: print command failed");
         }
 }
 

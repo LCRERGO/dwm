@@ -51,10 +51,11 @@ static const Rule rules[] = {
 /* if it's needed to autostart a program, add a system entry here
  * in the background, otherwise it causes the window manager to bug */
 const char *startuphook[] = {
-         "dunst &"     ,
-         "compton -b"  ,
-         "~/.fehbg"    ,
-         "slstatus &"  ,
+         "dunst &"                      ,
+         "compton -b"                   ,
+         "~/.fehbg"                     ,
+         "xrdb -merge ~/.Xresources"    ,
+         "slstatus &"                   ,
 };
 
 /* layout(s) */
@@ -98,7 +99,7 @@ static const char irccname[6]           = "irssi"; /* social irc client applicat
 /* commands */
 /* General commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_darkred, "-sf", col_gray4, NULL };
+static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, NULL };
 static const char termname[]    = "st"; /* terminal name to be used on definitions */
 static const char *termcmd[]    = { "st" , NULL };
 static const char *lockcmd[]    = { "slock", NULL };
