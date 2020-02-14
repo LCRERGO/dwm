@@ -34,6 +34,7 @@ If it is needed to change the defaults it must be done on config.* files
 * Calculator - ghci(Haskell) language
 * Social IRC client - irssi
 * Print Screen command - imagemagick
+* Screen locker - slock
 
 
 Installation

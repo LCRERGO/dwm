@@ -18,17 +18,10 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Hack Nerd Font:size=10" };
 static const char dmenufont[]       = "Hack Nerd Font:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char col_darkred[]     = "#990000";
-static const char col_orange[]      = "#d08770";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-        [SchemeSel]  = { col_gray4, col_darkred,  col_cyan  },
+	[SchemeNorm] = { "#bbbbbb", "#222222", "#444444" },
+        [SchemeSel]  = { "#eeeeee", "#b92b2b", "#BF616A" },
 };
 
 /* tagging unicode(requires Nerd Fonts) */
@@ -166,7 +159,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                          7)
 	TAGKEYS(                        XK_9,                          8)
 	{ MODKEY|ShiftMask,             XK_q,          quit,           {0} },
-	{ MODKEY|ControlMask,             XK_l,          spawn,          {.v = lockcmd } },
+	{ MODKEY,                       XK_x,          spawn,          {.v = lockcmd } },
         { 0,                            XK_Print,      printscreen,    {0} },
         /* Multimedia Keys */
         /* Audio keys */
