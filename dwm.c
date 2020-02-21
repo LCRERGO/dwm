@@ -1598,10 +1598,9 @@ printscreen(const Arg *arg)
         strcat(buf, suffix);
         strcat(image_name ,buf);
 
-        char *arg_print[] = {"import", "-window", "root", image_name, NULL};
         if (fork() == 0) {
                 setsid();
-                execvp("import", arg_print);
+                execlp("import", "import", "-window", "root", image_name, NULL);
                 die("dwm: print command failed");
         }
 }
