@@ -20,6 +20,7 @@
  *
  * To understand everything else, start reading main().
  */
+#include <ctype.h>
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
@@ -1645,7 +1646,61 @@ propertynotify(XEvent *e)
 void
 quit(const Arg *arg)
 {
-	running = 0;
+        char dmenu_str[] = "poweroff\\nreboot\\nsuspend\\nquit";
+        char choice[32];
+        pid_t wpid;
+        int auxpipe1[2], auxpipe2[2];
+        int wstatus;
+        int i;
+
+        pipe(auxpipe1);
+        if (!fork()) {
+                close(auxpipe1[0]);
+                dup2(auxpipe1[1], 1);
+                close(auxpipe1[1]);
+                execlp("echo", "echo", "-e", dmenu_str, NULL);
+        }
+
+        pipe(auxpipe2);
+        if ((wpid = fork()) == 0) {
+                close(auxpipe1[1]);
+                dup2(auxpipe1[0], 0);
+                close(auxpipe1[0]);
+
+                close(auxpipe2[0]);
+                dup2(auxpipe2[1], 1);
+                close(auxpipe2[1]);
+                execlp("dmenu", "dmenu", "-p", "Energy Options", NULL);
+        }
+
+        close(auxpipe1[0]);
+        close(auxpipe1[1]);
+        do { 
+                waitpid(wpid, &wstatus, 0);
+        } while(!WIFEXITED(wstatus));
+        if (!WEXITSTATUS(wstatus))
+                read(auxpipe2[0], choice, 32);
+        close(auxpipe2[0]);
+        close(auxpipe2[1]);
+
+        /* Cleaning up choice */
+        if (!WEXITSTATUS(wstatus)) {
+                i = -1;
+                while (isprint(choice[++i]));
+                choice[i] = '\0';
+
+                if (!strcmp(choice, "poweroff")) {
+                        execlp("systemctl", "systemctl", "poweroff", NULL);
+                } else if (!strcmp(choice, "reboot")) {
+                        execlp("systemctl", "systemctl", "reboot", NULL);
+                } else if (!strcmp(choice, "suspend")) {
+                        execlp("systemctl", "systemctl", "suspend", NULL);
+                } else if (!strcmp(choice, "quit")) {
+                        running = 0;
+                } else {
+                        fprintf(stderr, "Invalid Operation\n");
+                }
+        }
 }
 
 Monitor *
