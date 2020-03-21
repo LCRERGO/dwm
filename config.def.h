@@ -44,11 +44,12 @@ static const Rule rules[] = {
 /* if it's needed to autostart a program, add a system entry here
  * in the background, otherwise it causes the window manager to bug */
 const char *startuphook[] = {
-         "dunst &"                      ,
-         "compton -b"                   ,
-         "~/.fehbg"                     ,
-         "xrdb -merge ~/.Xresources"    ,
-         "slstatus &"                   ,
+         "dunst &"                              ,
+         "compton -b"                           ,
+         "xautolock -time 10 -locker slock &"   ,
+         "~/.fehbg"                             ,
+         "xrdb -merge ~/.Xresources"            ,
+         "slstatus &"                           ,
 };
 
 /* layout(s) */

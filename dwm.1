@@ -5,9 +5,10 @@ dwm \- dynamic window manager
 .B dwm
 .RB [ \-v ]
 .SH DESCRIPTION
-dwm is a dynamic window manager for X. It manages windows in tiled, monocle
-and floating layouts. Either layout can be applied dynamically, optimising the
-environment for the application in use and the task performed.
+dwm is a dynamic window manager for X. It manages windows in tiled, monocle,
+grid, centeredmaster, spiral and floating layouts. Either layout can be 
+applied dynamically, optimising the environment for the application in use 
+and the task performed.
 .P
 In tiled layouts windows are managed in a master and stacking area. The master
 area on the left contains one window by default, and the stacking area on the
@@ -15,7 +16,7 @@ right contains all other windows. The number of master area windows can be
 adjusted from zero to an arbitrary number. In monocle layout all windows are
 maximised to the screen size. In floating layout windows can be resized and
 moved freely. Dialog windows are always managed floating, regardless of the
-layout applied.
+layout applied. Other layouts play around with theses modes.
 .P
 Windows are grouped by tags. Each window can be tagged with one or multiple
 tags. Selecting certain tags displays all windows with these tags.

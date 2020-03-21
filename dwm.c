@@ -912,7 +912,8 @@ drawbars(void)
 }
 
 int
-drawstatusbar(Monitor *m, int bh, char* stext) {
+drawstatusbar(Monitor *m, int bh, char* stext)
+{
 	int ret, i, w, x, len;
 	short is_code = 0;
 	char *text;
@@ -939,7 +940,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 					w += atoi(text + ++i);
 			} else {
 				is_code = 0;
-				text = text + i + 1;
+				text += i + 1;
 				i = -1;
 			}
 		}
