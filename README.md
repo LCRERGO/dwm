@@ -15,6 +15,7 @@ patches and increments:
 8. Applyed the fibonacci patch.
 9. Applyed the gaplessgrid patch.
 10. Applyed the status2d patch.
+11. Applyed the uselessgap patch.
 
 
 Requirements
