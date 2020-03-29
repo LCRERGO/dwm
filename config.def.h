@@ -62,7 +62,8 @@ static const Layout layouts[] = {
 	{ "\ufb3f",   tile },    /* first entry is default */
 	{ "\uf53d",   NULL },    /* no layout function means floating behavior */
 	{ "\ufad7",   monocle },
-        { "\ufa6f",   grid},
+	{ "\ufa6f",   grid },
+	{ "\ufb37",   deck },
 	{ "\ufa6a",   centeredmaster },
 	{ "\ufa6b",   centeredfloatingmaster },
  	{ "\ufa73",   spiral },
