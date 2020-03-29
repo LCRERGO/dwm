@@ -1,12 +1,15 @@
-/* See LICENSE file for copyright and license details. */
 /*
- *     _   __  _                __
- *    / | / / (_)___  _________/ /
- *   /  |/ / / / __ \/ ___/ __  / 
- *  / /|  / / / /_/ / /  / /_/ /  
- * /_/ |_/_/ /\____/_/   \__,_/   
- *      /___/                     
+ *     _   __  _                __ 
+ *    / | / / (_)___  _________/ / 
+ *   /  |/ / / / __ \/ ___/ __  /  
+ *  / /|  / / / /_/ / /  / /_/ /   
+ * /_/ |_/_/ /\____/_/   \__,_/    
+ *      /___/                      
+ *       
+ * Author: Lucas Cruz dos Reis(L.C.R.) 
+ * Github: https://github.com/LCRERGO 
 */
+/* See LICENSE file for copyright and license details. */
 
 /* Auxiliary libraries */
 #include <X11/XF86keysym.h>
