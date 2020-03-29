@@ -1,3 +1,14 @@
+/*
+ *     _   __  _                __ 
+ *    / | / / (_)___  _________/ / 
+ *   /  |/ / / / __ \/ ___/ __  /  
+ *  / /|  / / / /_/ / /  / /_/ /   
+ * /_/ |_/_/ /\____/_/   \__,_/    
+ *      /___/                      
+ *       
+ * Author: Lucas Cruz dos Reis(L.C.R.) 
+ * Github: https://github.com/LCRERGO 
+*/
 /* cc transient.c -o transient -lX11 */
 
 #include <stdlib.h>
