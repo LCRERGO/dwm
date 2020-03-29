@@ -16,6 +16,7 @@ patches and increments:
 9. Applyed the gaplessgrid patch.
 10. Applyed the status2d patch.
 11. Applyed the deck layout patch.
+12. Applyed the uselessgap patch.
 
 
 Requirements
