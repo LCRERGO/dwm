@@ -50,7 +50,7 @@ static const Rule rules[] = {
 const char *startuphook[] = {
          "dunst &"                              ,
          "compton -b"                           ,
-         "xautolock -time 10 -locker slock &"   ,
+         "xautolock -time 20 -locker slock &"   ,
          "~/.fehbg"                             ,
          "xrdb -merge ~/.Xresources"            ,
          "slstatus &"                           ,

@@ -1690,33 +1690,33 @@ quit(const Arg *arg)
 
         pipe(auxpipe1);
         if (!fork()) {
-                close(auxpipe1[0]);
-                dup2(auxpipe1[1], 1);
-                close(auxpipe1[1]);
+                close(auxpipe1[STDIN_FILENO]);
+                dup2(auxpipe1[STDOUT_FILENO], STDOUT_FILENO);
+                close(auxpipe1[STDOUT_FILENO]);
                 execlp("echo", "echo", "-e", dmenu_str, NULL);
         }
 
         pipe(auxpipe2);
         if ((wpid = fork()) == 0) {
-                close(auxpipe1[1]);
-                dup2(auxpipe1[0], 0);
-                close(auxpipe1[0]);
+                close(auxpipe1[STDOUT_FILENO]);
+                dup2(auxpipe1[STDIN_FILENO], STDIN_FILENO);
+                close(auxpipe1[STDIN_FILENO]);
 
-                close(auxpipe2[0]);
-                dup2(auxpipe2[1], 1);
-                close(auxpipe2[1]);
+                close(auxpipe2[STDIN_FILENO]);
+                dup2(auxpipe2[STDOUT_FILENO], STDOUT_FILENO);
+                close(auxpipe2[STDOUT_FILENO]);
                 execlp("dmenu", "dmenu", "-p", "Energy Options", NULL);
         }
 
-        close(auxpipe1[0]);
-        close(auxpipe1[1]);
+        close(auxpipe1[STDIN_FILENO]);
+        close(auxpipe1[STDOUT_FILENO]);
         do { 
                 waitpid(wpid, &wstatus, 0);
         } while(!WIFEXITED(wstatus));
         if (!WEXITSTATUS(wstatus))
                 read(auxpipe2[0], choice, 32);
-        close(auxpipe2[0]);
-        close(auxpipe2[1]);
+        close(auxpipe2[STDIN_FILENO]);
+        close(auxpipe2[STDOUT_FILENO]);
 
         /* Cleaning up choice */
         if (!WEXITSTATUS(wstatus)) {
