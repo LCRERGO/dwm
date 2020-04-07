@@ -51,7 +51,7 @@ const char *startuphook[] = {
          "dunst &"                              ,
          "compton -b"                           ,
          "xautolock -time 20 -locker slock &"   ,
-         "~/.fehbg"                             ,
+         "set_wall"                             ,
          "xrdb -merge ~/.Xresources"            ,
          "slstatus &"                           ,
 };
