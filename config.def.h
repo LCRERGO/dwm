@@ -122,7 +122,8 @@ static const char *filebrowser[]    = { termname, "-e", filebrowsername, NULL };
 static const char *musicplayer[]    = { termname, "-e", musicplayername, NULL };
 static const char *calendar[]       = { termname, "-e", calendarname, NULL };
 static const char *calculator[]     = { termname, "-e", calculatorname, NULL };
-static const char *socialclient[]   = { termname, "-e", irccname, NULL };
+static const char *socialclient[]   = { termname, "-e", irccname,
+    "--config=~/.config/irssi", "--home=~/.local/share/irssi", NULL };
 
 static Key keys[] = {
 	/* modifier                     key            function        argument */
