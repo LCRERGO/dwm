@@ -185,6 +185,8 @@ static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttiled(Client *c);
 static void pop(Client *c);
+static void powermenu(const Arg *arg);
+static void poweroption(char option[], int size);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
@@ -1215,6 +1217,88 @@ pop(Client *c)
 	attach(c);
 	focus(c);
 	arrange(c->mon);
+}
+
+void
+powermenu(const Arg *arg)
+{
+	int bytes_read, status;
+	char buf[256];
+	int in_pipe[2], out_pipe[2];
+	const char *cmd[] = { "dmenu", "-p", "Energy Options", NULL };
+	const char options[] = "poweroff\nreboot\nsuspend\nquit";
+
+	memset(buf, '\0', 256);
+	if (pipe(in_pipe) < 0)
+		die("dwm: pipe failed:");
+	if(pipe(out_pipe) < 0)
+		die("dwm: pipe failed:");
+	if (fork() == 0) {
+		if (dpy)
+			close(ConnectionNumber(dpy));
+		if (close(in_pipe[1]) < 0)
+			die("dwm: close failed:");
+		if (close(out_pipe[0]) < 0)
+			die("dwm: close failed:");
+		if (dup2(in_pipe[0], STDIN_FILENO) < 0)
+			die("dwm: dup2 failed:");
+		if (dup2(out_pipe[1], STDOUT_FILENO) < 0)
+			die("dwm: dup2 failed:");
+		setsid();
+		execvp(cmd[0], (char **)cmd);
+		die("dwm: execvp '%s' failed:", ((char **)cmd)[0]);
+	} else {
+		if (close(in_pipe[0]) < 0)
+			die("dwm: close failed:");
+		if (close(out_pipe[1]) < 0)
+			die("dwm: close failed:");
+		write(in_pipe[1], options, sizeof(options));
+		if (close(in_pipe[1]) < 0)
+			die("dwm: close failed:");
+		wait(&status);
+		if (WEXITSTATUS(status) == 0) {
+			while ((bytes_read = read(out_pipe[0], buf, sizeof(buf))) <= 0);
+			if (close(out_pipe[0]) < 0)
+				die("dwm: close failed:");
+
+			buf[bytes_read--] = '\0';
+			poweroption(buf, bytes_read);
+		} else {
+			if (close(out_pipe[0]) < 0)
+				die("dwm: close failed:");
+		}
+	}
+}
+
+void
+poweroption(char option[], int size)
+{
+	char *cmd[3] = {"systemctl", "", NULL};
+
+	if (strncmp(option, "poweroff", size) == 0) {
+		if (dpy)
+			close(ConnectionNumber(dpy));
+		cmd[1] = "poweroff";
+		execvp(cmd[0], cmd);
+		die("dwm: execvp '%s' failed:", cmd[0]);
+	}
+	if (strncmp(option, "reboot", size) == 0) {
+		if (dpy)
+			close(ConnectionNumber(dpy));
+		cmd[1] = "reboot";
+		execvp(cmd[0], cmd);
+		die("dwm: execvp '%s' failed:", cmd[0]);
+	}
+	if (strncmp(option, "suspend", size) == 0) {
+		if (dpy)
+			close(ConnectionNumber(dpy));
+		cmd[1] = "suspend";
+		execvp(cmd[0], cmd);
+		die("dwm: execvp '%s' failed:", cmd[0]);
+	}
+	if (strncmp(option, "quit", size) == 0) {
+		quit(NULL);
+	}
 }
 
 void
