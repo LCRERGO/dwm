@@ -1225,7 +1225,14 @@ powermenu(const Arg *arg)
 	int bytes_read, status;
 	char buf[256];
 	int in_pipe[2], out_pipe[2];
-	const char *cmd[] = { "dmenu", "-p", "Energy Options", NULL };
+	const char *cmd[] = { "dmenu",
+            "-fn", dmenufont,
+            "-nb", col_gray1,
+            "-nf", col_gray3,
+            "-sb", col_red,
+            "-sf", col_gray4,
+            "-p", "Energy Options",
+            NULL };
 	const char options[] = "poweroff\nreboot\nsuspend\nquit";
 
 	memset(buf, '\0', 256);
