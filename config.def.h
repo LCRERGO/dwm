@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -59,6 +61,18 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_red, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+/* multimedia */
+static const char *incvol[]   = { "amixer", "set", "Master", "5%+", NULL };
+static const char *decvol[]   = { "amixer", "set", "Master", "5%-", NULL };
+static const char *mutevol[]  = { "amixer", "set", "Master", "toggle", NULL };
+static const char *incmic[]   = { "amixer", "set", "Capture", "5%+", NULL };
+static const char *decmic[]   = { "amixer", "set", "Capture", "5%-", NULL };
+static const char *mutemic[]  = { "amixer", "set", "Capture", "toggle", NULL };
+
+static const char *tooglectrl[]  = { "playerctl", "play-pause", NULL };
+static const char *stopctrl[]    = { "playerctl", "stop", NULL };
+static const char *nextctrl[]    = { "playerctl", "next", NULL };
+static const char *prevctrl[]    = { "playerctl", "previous", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -95,6 +109,20 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      powermenu,      {0} },
+
+        /* Multimedia keys */
+	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = decvol} },
+	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = incvol} },
+	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol} },
+	{ ShiftMask,                    XF86XK_AudioLowerVolume,  spawn, {.v = decmic} },
+	{ ShiftMask,                    XF86XK_AudioRaiseVolume,  spawn, {.v = incmic} },
+	{ ShiftMask,                    XF86XK_AudioMute,         spawn, {.v = mutemic} },
+
+        /* Player control keys */
+	{ 0,                            XF86XK_AudioPlay,  spawn, {.v = tooglectrl} },
+	{ ShiftMask,                    XF86XK_AudioPlay,  spawn, {.v = stopctrl} },
+	{ 0,                            XF86XK_AudioNext,  spawn, {.v = nextctrl} },
+	{ 0,                            XF86XK_AudioPrev,  spawn, {.v = prevctrl} },
 };
 
 /* button definitions */
